@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html   xmlns:th="http://thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Cinema Division</title>
+	<!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+
+    <!--Let browser know website is optimized     for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+    <h1>Detalhes Do Filme</h1>
+    <h3><a href="/filmes" class="waves-effect waves-light btn"><i class="material-icons left">format_align_justify</i>Filmes</a></h3>
+    <div th:each="filmes: ${filmes}">
+        <div class="container" >
+            <p>Nome: <span th:text="${filmes.nome}"></span></p>
+            <p>Idade Indicativa: <span th:text="${filmes.idade_indicativa}"></span></p>
+            <p>Data Da Sessão: <span th:text="${filmes.data}"></span></p>
+            <p>Sala Da Sessão: <span th:text="${filmes.sessao}"></span></p>
+            <p>Hora Da Sessão: <span th:text="${filmes.hora}"></span></p>
+        </div>
+		
+        <form class = "container"method="post">
+            <input type="text" value="" name="nome_convidado" placeholder="Insira o nome do convidado">
+            <input type="text" value="" name="rg_convidado" placeholder="Insira o nome rg do convidado">
+
+               <!--<button type="submit">Salvar</button>-->
+            <button class="btn waves-effect waves-light" type="submit" name="action">Adicionar Convidados
+                <i class="material-icons right">add</i>
+            </button>                          
+        </form>
+    </div>
+    
+    <div class="container">
+    	<h5>Lista De Convidados Para Assistir ao Filme</h5>
+    </div>
+    <table class="container tabelaConvidado">
+    	<thead>
+    		<tr>
+	    		<th>Nome Convidado</th>
+	    		<th>Rg</th>
+	    		<th>Deletar</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    		<tr th:each="convidado: ${convidados}">
+    			<td><span th:text = "${convidado.nome_convidado}"></span></td>
+    			<td><span th:text = "${convidado.rg_convidado}"></span></td>
+    			<td><a class="waves-effect waves-light btn-small" th:href="${(#mvc.url('CC#deletarConvidado').arg(0, convidado.id_convidado)).build()}"><i class="material-icons left">delete</i></a></td>
+    		</tr>
+    	</tbody>
+    </table>
+    <!--JavaScript at end of body for optimized loading-->
+   <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+</body>
+</html>
